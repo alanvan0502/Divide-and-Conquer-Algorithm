@@ -36,6 +36,7 @@ public class BinarySearch {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
+        
         int m = scanner.nextInt();
         int[] b = new int[m];
         for (int i = 0; i < m; i++) {
