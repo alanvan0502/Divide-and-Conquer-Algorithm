@@ -110,7 +110,7 @@ public class SortingAlgorithms {
     }
     
     /**
-     * Sort the input array using Counting Sort. Time complexity...
+     * Sort the input array using Counting Sort. Time complexity O(N)
      * @param A, array to be sorted
      * @param m, [1...m] are elements of array A
      * @return sorted array
@@ -132,6 +132,34 @@ public class SortingAlgorithms {
                 index++;
             }
         }
+        return result;
+    }
+    
+    /**
+     * Sort the input array using Counting Sort, copying elements of input array
+     * @param A, array to be sorted
+     * @param m, [1...m] are elements of array A
+     * @return sorted array
+     */
+    public static int[] countSortCopy(int[]A, int m) {
+        int[] count = new int[m];
+        
+        for (int i = 0; i < A.length; i++) {
+            count[A[i] - 1] += 1;
+        }
+        
+        int[] pos = new int[m];
+        pos[0] = 0;
+        for (int j = 1; j < m; j++) {
+            pos[j] = pos[j-1] + count[j-1];
+        }
+        
+        int[] result = new int[A.length];
+        for (int i = 0; i < A.length; i++) {
+            result[pos[A[i]-1]] = A[i];
+            pos[A[i]-1] += 1;
+        }
+        
         return result;
     }
 }

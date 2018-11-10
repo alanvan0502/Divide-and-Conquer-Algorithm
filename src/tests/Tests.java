@@ -179,11 +179,22 @@ public class Tests {
     @Test
     public void testCountSort() {
         int[] a = SortingAlgorithms.countSort(new int[] {3, 4, 1, 2, 4, 6, 6, 7, 5, 7}, 7);
-        int[] ans = new int[] {1, 2, 3, 4, 4, 5, 6, 6, 7, 7, 7};
+        int[] ans = new int[] {1, 2, 3, 4, 4, 5, 6, 6, 7, 7};
         for (int i = 0; i < a.length; i++) {
             assertTrue(a[i] == ans[i]);
         }
         int[] b = SortingAlgorithms.countSort(new int[] {1}, 1);
+        assertTrue(b[0] == 1);
+    }
+    
+    @Test
+    public void testCountSortCopy() {
+        int[] a = SortingAlgorithms.countSortCopy(new int[] {3, 4, 1, 2, 4, 6, 6, 7, 5, 7}, 7);
+        int[] ans = new int[] {1, 2, 3, 4, 4, 5, 6, 6, 7, 7};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ans[i]);
+        }
+        int[] b = SortingAlgorithms.countSortCopy(new int[] {1}, 1);
         assertTrue(b[0] == 1);
     }
     
