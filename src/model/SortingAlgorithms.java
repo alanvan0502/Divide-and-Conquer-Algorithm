@@ -3,6 +3,7 @@ import java.util.*;
 
 public class SortingAlgorithms {
     
+    static Random rand = new Random();
     /**
      * Sort the input array using Selection Sort. Time complexity O(n^2).
      * @param A, array to be sorted
@@ -234,8 +235,16 @@ public class SortingAlgorithms {
         quickSort(arr, l, m-1);
         quickSort(arr, m+1, r);
     }
+    
+    public static void quickSort3(int[] arr, int l, int r) {
+        if (l >= r) return;
+       
+        int[] m = partition3(arr, l, r);
+        quickSort3(arr, l, m[0]-1);
+        quickSort3(arr, m[1]+1, r);
+    }
 
-    private static int partition(int[] arr, int l, int r) {
+    public static int partition(int[] arr, int l, int r) {
         int pivot = arr[l];
         int j = l;
         
@@ -247,6 +256,53 @@ public class SortingAlgorithms {
         }
         swap(arr, j, l);
         return j;
+    }
+    
+    private static int[] partition3draft(int[] arr, int l, int r) {
+        int pivot = arr[l];
+        int j = l;
+        
+        for (int i = l+1; i <= r; i++) {
+            if (arr[i] <= pivot) {
+                j++;
+                swap(arr, j, i);
+            }
+        }
+        swap(arr, j, l);
+        
+        int j0 = l;
+        int k = 0;
+        for (int i = l+1; i <= j; i++) {
+            if (arr[i] < pivot) {
+                j0++;
+                swap(arr, j0, i);
+            }
+            if (arr[i] == arr[j]) {
+                k++;
+            }
+        }
+
+        swap(arr, j0, l);
+        return new int[] {j - k + 1, j};
+    }
+    
+    public static int[] partition3(int[] arr, int l, int r) {
+        int lowerIndex = l;
+        int greaterIndex = r;
+        int pivot = arr[l];
+        int i = l;
+        
+        while (i <= greaterIndex) {
+            if (arr[i] < pivot) {
+                swap(arr, lowerIndex++, i++);
+            } else if (arr[i] > pivot) {
+                swap(arr, i, greaterIndex--);
+            } else {
+                i++;
+            }
+        }
+        
+        return new int[] {lowerIndex, greaterIndex};
     }
     
     /**
@@ -262,11 +318,32 @@ public class SortingAlgorithms {
         
         Random rand = new Random();
         int k = l + rand.nextInt(r - l + 1);
-        swap(arr, l, k);
+
+        swap(arr, k, l);
         
         int m = partition(arr, l, r);
         randomizedQuickSort(arr, l, m-1);
         randomizedQuickSort(arr, m+1, r);
+    }
+      
+    /**
+     * Randomized Quicksort3 Algorithm to ensure average time-complexity to be O(nlogn)
+     * Sort the input array using QuickSort3, copying elements of input array
+     * With 3 way partition
+     * @param arr, array to be sorted
+     * @param l, left index of array to be sorted
+     * @param r, right index of array to be sorted, including this index
+     * @return nothing, array arr is modified by this method
+     */
+    public static void randomizedQuickSort3(int[] arr, int l, int r) {
+        if (l >= r) return;
+        
+        int k = l + rand.nextInt(r - l + 1);
+        swap(arr, l, k);
+        
+        int[] m = partition3(arr, l, r);
+        randomizedQuickSort3(arr, l, m[0]-1);
+        randomizedQuickSort3(arr, m[1]+1, r);
     }
     
     /**
@@ -279,8 +356,7 @@ public class SortingAlgorithms {
      */
     public static void tailRandomizedQuickSort(int[] arr, int l, int r) {
         if (l >= r) return;
-        
-        Random rand = new Random();
+
         int k = l + rand.nextInt(r - l + 1);
         swap(arr, l, k);
         
@@ -294,5 +370,5 @@ public class SortingAlgorithms {
                 r = m - 1;
             }
         }
-    }    
+    }   
 }

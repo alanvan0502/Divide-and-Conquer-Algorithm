@@ -242,6 +242,13 @@ public class Tests {
         for (int i = 0; i < c.length; i++) {
             assertTrue(c[i] == ansc[i]);
         }
+        
+        int[] d = new int[] {2, 1, 2, 1, 2, 2, 22, 5};
+        SortingAlgorithms.quickSort(d, 0, d.length-1);
+        int[] ansd = new int[] {1, 1, 2, 2, 2, 2, 5, 22};
+        for (int i = 0; i < d.length; i++) {
+            assertTrue(d[i] == ansd[i]);
+        }
     }
     
     @Test
@@ -289,6 +296,102 @@ public class Tests {
         int[] ansc = new int[] {32};
         for (int i = 0; i < c.length; i++) {
             assertTrue(c[i] == ansc[i]);
+        }
+    }
+    
+    @Test
+    public void testParitition() {
+        int[] a = new int[] {4, 3, 2, 4, 4, 1, 44, 22, 5};
+        int m = SortingAlgorithms.partition(a, 0, a.length - 1);
+        
+        int[] b = new int[] {4, 3, 2, 1, 4, 1, 4, 22, 4, 6};
+        int n = SortingAlgorithms.partition(b, 0, b.length - 1);
+        
+        int[] c = new int[] {4, 3, 2, 4, 4, 1, 44, 22, 5};
+        int[] m3 = SortingAlgorithms.partition3(c, 0, c.length - 1);
+        
+        int[] d = new int[] {4, 3, 2, 1, 4, 1, 4, 22, 4, 6};
+        int[] n3 = SortingAlgorithms.partition3(d, 0, d.length - 1);
+    }
+    
+    @Test
+    public void testRandomizedQuickSort3() {
+        int[] a = new int[] {10, 32, 2, 2, 1, 0, 44, 22, 5};
+        SortingAlgorithms.randomizedQuickSort3(a, 0, a.length-1);
+        int[] ansa = new int[] {0, 1, 2, 2, 5, 10, 22, 32, 44};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ansa[i]);
+        }
+        
+        int[] b = new int[] {32, 2};
+        SortingAlgorithms.randomizedQuickSort3(b, 0, b.length-1);
+        int[] ansb = new int[] {2, 32};
+        for (int i = 0; i < b.length; i++) {
+            assertTrue(b[i] == ansb[i]);
+        }
+        
+        int[] c = new int[] {32};
+        SortingAlgorithms.randomizedQuickSort3(c, 0, c.length-1);
+        int[] ansc = new int[] {32};
+        for (int i = 0; i < c.length; i++) {
+            assertTrue(c[i] == ansc[i]);
         } 
+    }
+    
+    @Test
+    public void testQuickSort3() {
+        int[] a = new int[] {10, 32, 2, 1, 0, 44, 22, 5};
+        SortingAlgorithms.quickSort3(a, 0, a.length-1);
+        int[] ansa = new int[] {0, 1, 2, 5, 10, 22, 32, 44};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ansa[i]);
+        }
+        
+        int[] b = new int[] {32, 2};
+        SortingAlgorithms.quickSort3(b, 0, b.length-1);
+        int[] ansb = new int[] {2, 32};
+        for (int i = 0; i < b.length; i++) {
+            assertTrue(b[i] == ansb[i]);
+        }
+        
+        int[] c = new int[] {32};
+        SortingAlgorithms.quickSort3(c, 0, c.length-1);
+        int[] ansc = new int[] {32};
+        for (int i = 0; i < c.length; i++) {
+            assertTrue(c[i] == ansc[i]);
+        }
+        
+        int[] d = new int[] {2, 1, 2, 1, 2, 2, 22, 5};
+        SortingAlgorithms.quickSort3(d, 0, d.length-1);
+        int[] ansd = new int[] {1, 1, 2, 2, 2, 2, 5, 22};
+        for (int i = 0; i < d.length; i++) {
+            assertTrue(d[i] == ansd[i]);
+        }
+    }
+    
+    @Test
+    public void stressTest() {
+        int[] arr1 = new int[100];
+        int[] arr2 = new int[100];
+        
+        Random rand = new Random();
+        
+        while (true) {
+            for (int i = 0; i < arr1.length; i++) {
+                arr1[i] = rand.nextInt();
+                arr2[i] = arr1[i];   
+            }
+            SortingAlgorithms.randomizedQuickSort(arr1, 0, arr1.length-1);
+            SortingAlgorithms.randomizedQuickSort3(arr2, 0, arr2.length-1);
+
+            for (int i = 0; i < arr1.length; i++) {
+                System.out.print(arr1[i] + " ");
+                System.out.println();
+                System.out.print(arr2[i] + " ");
+                if (arr1[i] == arr2[i]) {
+                    break;
+                }
+            }
+        }
     }
 }
