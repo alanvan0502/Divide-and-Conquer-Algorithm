@@ -199,11 +199,96 @@ public class Tests {
     }
     
     
+    @Test
+    public void testQuickSortTry() {
+        int[] a = SortingAlgorithms.quickSortTry(new int[] {10, 32, 2, 1, 0, 44, 22, 5});
+        int[] ansa = new int[] {0, 1, 2, 5, 10, 22, 32, 44};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ansa[i]);
+        }
+        
+        int[] b = SortingAlgorithms.quickSortTry(new int[] {32, 2});
+        int[] ansb = new int[] {2, 32};
+        for (int i = 0; i < b.length; i++) {
+            assertTrue(b[i] == ansb[i]);
+        }
+        
+        int[] c = SortingAlgorithms.quickSortTry(new int[] {32});
+        int[] ansc = new int[] {32};
+        for (int i = 0; i < c.length; i++) {
+            assertTrue(c[i] == ansc[i]);
+        }
+    }
     
+    @Test
+    public void testQuickSort() {
+        int[] a = new int[] {10, 32, 2, 1, 0, 44, 22, 5};
+        SortingAlgorithms.quickSort(a, 0, a.length-1);
+        int[] ansa = new int[] {0, 1, 2, 5, 10, 22, 32, 44};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ansa[i]);
+        }
+        
+        int[] b = new int[] {32, 2};
+        SortingAlgorithms.quickSort(b, 0, b.length-1);
+        int[] ansb = new int[] {2, 32};
+        for (int i = 0; i < b.length; i++) {
+            assertTrue(b[i] == ansb[i]);
+        }
+        
+        int[] c = new int[] {32};
+        SortingAlgorithms.quickSort(c, 0, c.length-1);
+        int[] ansc = new int[] {32};
+        for (int i = 0; i < c.length; i++) {
+            assertTrue(c[i] == ansc[i]);
+        }
+    }
     
+    @Test
+    public void testRandomizedQuickSort() {
+        int[] a = new int[] {10, 32, 2, 2, 1, 0, 44, 22, 5};
+        SortingAlgorithms.randomizedQuickSort(a, 0, a.length-1);
+        int[] ansa = new int[] {0, 1, 2, 2, 5, 10, 22, 32, 44};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ansa[i]);
+        }
+        
+        int[] b = new int[] {32, 2};
+        SortingAlgorithms.randomizedQuickSort(b, 0, b.length-1);
+        int[] ansb = new int[] {2, 32};
+        for (int i = 0; i < b.length; i++) {
+            assertTrue(b[i] == ansb[i]);
+        }
+        
+        int[] c = new int[] {32};
+        SortingAlgorithms.randomizedQuickSort(c, 0, c.length-1);
+        int[] ansc = new int[] {32};
+        for (int i = 0; i < c.length; i++) {
+            assertTrue(c[i] == ansc[i]);
+        } 
+    }
     
-    
-    
-    
-    
+    @Test
+    public void testTailRandomizedQuickSort() {
+        int[] a = new int[] {10, 32, 2, 2, 1, 0, 44, 22, 5};
+        SortingAlgorithms.tailRandomizedQuickSort(a, 0, a.length-1);
+        int[] ansa = new int[] {0, 1, 2, 2, 5, 10, 22, 32, 44};
+        for (int i = 0; i < a.length; i++) {
+            assertTrue(a[i] == ansa[i]);
+        }
+        
+        int[] b = new int[] {32, 2};
+        SortingAlgorithms.tailRandomizedQuickSort(b, 0, b.length-1);
+        int[] ansb = new int[] {2, 32};
+        for (int i = 0; i < b.length; i++) {
+            assertTrue(b[i] == ansb[i]);
+        }
+        
+        int[] c = new int[] {32};
+        SortingAlgorithms.tailRandomizedQuickSort(c, 0, c.length-1);
+        int[] ansc = new int[] {32};
+        for (int i = 0; i < c.length; i++) {
+            assertTrue(c[i] == ansc[i]);
+        } 
+    }
 }
