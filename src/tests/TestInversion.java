@@ -3,7 +3,6 @@ package tests;
 import org.junit.jupiter.api.Test;
 
 import model.Inversions;
-import model.SortingAlgorithms;
 
 import static org.junit.Assert.*;
 
