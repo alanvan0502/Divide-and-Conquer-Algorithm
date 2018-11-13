@@ -42,11 +42,41 @@ public class TestClosest {
         assertEquals(Closest.minimalDistance(x, y), Closest.minimalDistanceNaive(x, y), 0.01);
     }
     
+//    @Test
+//    public void testClosest5() {
+//        int[] x = new int[] {0, 3, 3, 3};
+//        int[] y = new int[] {0, 6, 4, 2};
+//        assertEquals(Closest.minimalDistance(x, y), Closest.minimalDistanceNaive(x, y), 0.01);
+//    }
+    
     @Test
     public void testClosest6() {
         int[] x = new int[] {-44, 18, 30, 20, 19, 28, 36, 10, -22, -18};
         int[] y = new int[] {-43, 43, 32, 15, -26, -22, 17, -15, -12, -17};
         assertEquals(Closest.minimalDistance(x, y), Closest.minimalDistanceNaive(x, y), 0.01);
+    }
+    
+    // Special test case!
+    @Test
+    public void testClosest7() {
+        int size = 100000;
+        int[] x = new int[size];
+        int[] y = new int[size];
+        x[0] = 0;
+        x[1] = 5000;
+        y[0] = 0;
+        y[1] = 5000;
+        x[2] = 1;
+        y[2] = 20000;
+        for (int i = 3; i <= 10000; i++) {
+            x[i] += 1;
+            y[i] += 10000;
+        }
+        for (int i = 10001; i < size; i++) {
+            x[i] = 10000;
+            y[i] -= 10000;
+        }
+        
     }
 
     @Test
@@ -59,8 +89,8 @@ public class TestClosest {
             List<Integer> xValues = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 while(true) {
-                    int xValue = rand.nextInt(20000);
-                    if (!xValues.contains(xValue) && xValue > 10000) {
+                    int xValue = rand.nextInt(2000);
+                    if (!xValues.contains(xValue) && xValue > 100) {
                         xValues.add(xValue);
                         x[i] = xValue;
                         break;
@@ -89,29 +119,4 @@ public class TestClosest {
         }
         System.out.println();
     }
-    
-    
-// TODO: To be deleted    
-//  int[] focus = getIndexInRange(points, midX - d, midX + d);
-//  int focusLeft = focus[0];
-//  int focusRight = Math.min(focus[1], focus[0] + 6);
-//  
-//  Arrays.sort(points, focusLeft, focusRight + 1, new Comparator<Point>() {
-//      @Override
-//      public int compare(Point p1, Point p2) {
-//          return Long.signum(p1.y - p2.y);
-//      }      
-//  });
-//
-//  double dprime = Double.POSITIVE_INFINITY;
-//  
-//  for (int i = focusLeft; i <= focusRight; i++) {
-//      for (int j = focusLeft; j <= focusRight; j++) {
-//          if (i != j) {
-//              double dist = distance(points[i], points[j]);
-//              if (dist < dprime)
-//                  dprime = dist;
-//          }
-//      }
-//  }
 }

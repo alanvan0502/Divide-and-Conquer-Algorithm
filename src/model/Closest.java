@@ -27,50 +27,52 @@ public class Closest {
 
     public static double minimalDistance(int[] x, int[] y) {
 
-        Point[] points = new Point[x.length];
+        Point[] pointsXsorted = new Point[x.length];
+        Point[] pointsYSorted = new Point[y.length];
         for (int i = 0; i < x.length; i++) {
-            points[i] = new Point(x[i], y[i]);
+            pointsXsorted[i] = new Point(x[i], y[i]);
+            pointsYSorted[i] = pointsXsorted[i];
         }
-        Arrays.sort(points, new Comparator<Point>(){
+        Arrays.sort(pointsXsorted, new Comparator<Point>(){
             @Override
             public int compare(Point p1, Point p2) {
                 return Long.signum(p1.x - p2.x);
             }
         });
-        Point pMinX = points[0];
-        Point pMaxX = points[points.length-1];
-        return minimalDistanceHelp(points, pMinX.x, pMaxX.x);
-    }
-
-    private static double minimalDistanceHelp(Point[] points, double minX, double maxX) {
-
-        int[] range = getIndexInRange(points, minX, maxX);
-        int left = range[0];
-        int right = range[1];
-        if (right - left < 1)
-            return Double.POSITIVE_INFINITY;
-        else if (right - left == 1)
-            return distance(points[right], points[left]);
-
-        double midX = minX + (maxX - minX)/2;
-        double dl = minimalDistanceHelp(points, minX, midX);
-        double dr = minimalDistanceHelp(points, midX, maxX);
-        double d = Math.min(dl, dr);
         
-        List<Point> focus = new ArrayList<>();
-        for (Point p: points) {
-            if (Math.abs(p.x - midX) <= d) {
-                focus.add(p);
-            }
-        }
-
-        focus.sort(new Comparator<Point>() {
+        Arrays.sort(pointsYSorted, new Comparator<Point>() {
             @Override
             public int compare(Point p1, Point p2) {
                 return Long.signum(p1.y - p2.y);
             }      
         });
+        
+        Point pMinX = pointsXsorted[0];
+        Point pMaxX = pointsXsorted[pointsXsorted.length-1];
+        return minimalDistanceHelp(pointsXsorted, pointsYSorted, pMinX.x, pMaxX.x);
+    }
 
+    private static double minimalDistanceHelp(Point[] pointsXsorted, Point[] pointsYsorted, double minX, double maxX) {
+
+        int[] range = getIndexInRange(pointsXsorted, minX, maxX);    
+        int left = range[0];
+        int right = range[1];
+        if (right - left < 1)
+            return Double.POSITIVE_INFINITY;
+        else if (right - left == 1)
+            return distance(pointsXsorted[right], pointsXsorted[left]);
+
+        double midX = minX + (maxX - minX)/2;
+        double dl = minimalDistanceHelp(pointsXsorted, pointsYsorted, minX, midX);
+        double dr = minimalDistanceHelp(pointsXsorted, pointsYsorted, midX, maxX);
+        double d = Math.min(dl, dr);
+        
+        List<Point> focus = new ArrayList<>();
+        for (Point p: pointsYsorted) {
+            if (Math.abs(p.x - midX) <= d) {
+                focus.add(p);
+            }
+        }
         double dprime = Double.POSITIVE_INFINITY;
 
         for (int i = 0; i < Math.min(focus.size(), 7); i++) {
